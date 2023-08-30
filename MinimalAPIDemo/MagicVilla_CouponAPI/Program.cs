@@ -1,4 +1,5 @@
 using MagicVilla_CouponAPI.Data;
+using MagicVilla_CouponAPI.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,36 @@ if (app.Environment.IsDevelopment())
 app.MapGet("/api/coupon", () =>
 {
     return Results.Ok(CouponStore.coupons.ToList());
+});
+
+app.MapGet("/api/coupon/{id:int}", (int id) =>
+{
+    Coupon coupon = CouponStore.coupons.FirstOrDefault(x => x.Id == id);
+    if (coupon is not null)
+    {
+        return Results.Ok(coupon);
+    }
+    return Results.NotFound($"Coupon with id = {id} not found.");
+});
+
+app.MapPost("/api/coupon", () =>
+{
+
+});
+
+app.MapPut("/api/coupon", () =>
+{
+
+});
+
+app.MapDelete("/api/coupon/{id:int}", (int id) =>
+{
+    Coupon coupon = CouponStore.coupons.FirstOrDefault(x => x.Id == id);
+    if (coupon is not null)
+    {
+        CouponStore.coupons.Remove(coupon);
+    }
+    return Results.NotFound($"Coupon with id = {id} not found.");
 });
 
 app.UseHttpsRedirection();
