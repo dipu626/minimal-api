@@ -14,7 +14,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.MapGet("/helloworld", () => "Hello World!");
+app.MapGet("/helloworld", () =>
+{
+    return Results.BadRequest(new NotImplementedException().Message);
+});
 
 app.UseHttpsRedirection();
 
