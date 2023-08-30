@@ -14,9 +14,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.MapGet("/helloworld", () =>
+app.MapGet("/helloworld/{id:int}", (int id) =>
 {
-    return Results.BadRequest(new NotImplementedException().Message);
+    return Results.Ok($"Id = {id}");
 });
 
 app.UseHttpsRedirection();
